@@ -15,7 +15,8 @@ RUN apk add --no-cache --virtual build-dependencies --repository http://dl-cdn.a
     boost-dev \
     ngspice-dev \
     tcl-dev \
-    tk-dev
+    tk-dev \
+    vtk-dev
 
 RUN git clone --depth 1 --branch $OCE_VERSION https://github.com/tpaviot/oce.git /oce
 
