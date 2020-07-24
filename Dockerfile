@@ -31,7 +31,7 @@ RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 RUN mkdir /oce/build
 WORKDIR /oce/build
 
-RUN cmake -DINSTALL_DIR=/opt/oce ..
+RUN cmake ..
 RUN make
 RUN make install
 
