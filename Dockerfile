@@ -2,7 +2,7 @@ FROM alpine:3.12.0 as builder
 
 ENV OCE_VERSION official/6.8.0
 
-RUN apk add --no-cache --virtual edge-build-dependencies --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+RUN apk add --no-cache --virtual build-dependencies --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     git \
     build-base \
     cmake \
@@ -15,8 +15,7 @@ RUN apk add --no-cache --virtual edge-build-dependencies --repository http://dl-
     boost-dev \
     ngspice-dev \
     tcl-dev \
-    tk-dev \
-    zig
+    tk-dev
 
 RUN git clone --depth 1 --branch $OCE_VERSION https://github.com/tpaviot/oce.git /oce
 
@@ -31,7 +30,7 @@ RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 RUN mkdir /oce/build
 WORKDIR /oce/build
 
-RUN cmake ..
+RUN cmake -DINSTALL_DIR=/usr/local/ ..
 RUN make
 RUN make install
 
