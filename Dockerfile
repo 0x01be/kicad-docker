@@ -1,6 +1,8 @@
-FROM alpine:3.12.0 as builder
+FROM 0x01be/vtk as vtk
 
-ENV OCE_VERSION official/6.8.0
+FROM 0x01be/oce as builder
+
+COPY --from=vtk /opt/vtk/ /opt/vtk/ 
 
 RUN apk add --no-cache --virtual build-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
@@ -19,24 +21,14 @@ RUN apk add --no-cache --virtual build-dependencies \
     ngspice-dev \
     tcl-dev \
     tk-dev \
-    vtk-dev
+    py3-wxpython \
+    python2-dev \
+    jpeg-dev \
+    py-pip
 
-RUN git clone --depth 1 --branch $OCE_VERSION https://github.com/tpaviot/oce.git /oce
-
-# https://github.com/tpaviot/oce/issues/675
-# https://stackoverflow.com/a/58576593
-# https://dev.alpinelinux.org/~clandmeter/other/forum.alpinelinux.org/comment/690.html#comment-690
-COPY oce.patch /oce/
-WORKDIR /oce
-RUN patch -p0 < oce.patch
-RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
-
-RUN mkdir /oce/build
-WORKDIR /oce/build
-
-RUN cmake -DINSTALL_DIR=/usr/local/ ..
-RUN make
-RUN make install
+RUN pip install \
+    wxpython \
+    wxpython-common
 
 RUN git clone --depth 1 https://gitlab.com/kicad/code/kicad.git /kicad
 
