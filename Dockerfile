@@ -2,7 +2,10 @@ FROM alpine:3.12.0 as builder
 
 ENV OCE_VERSION official/6.8.0
 
-RUN apk add --no-cache --virtual build-dependencies --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+RUN apk add --no-cache --virtual build-dependencies \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     git \
     build-base \
     cmake \
