@@ -43,7 +43,7 @@ RUN ./configure \
     --disable-shared \
     --disable-precomp-headers \
     --enable-monolithic \
-    --prefix=`pwd`/../wx-bin \
+    --prefix=/opt/wxwidgets/ \
     --with-opengl \
     --enable-aui \
     --enable-html \
@@ -62,6 +62,7 @@ RUN cmake -DCMAKE_BUILD_TYPE=Release \
     -DKICAD_SCRIPTING_PYTHON3=ON \
     -DKICAD_SCRIPTING_WXPYTHON=OFF \
     -DKICAD_SCRIPTING_WXPYTHON_PHOENIX=ON \
+    -DwxWidgets_ROOT_DIR=/opt/wxwidgets/ \
     -DOCE_DIR=/opt/oce/  \
      ..
 RUN make
