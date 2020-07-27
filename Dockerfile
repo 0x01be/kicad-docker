@@ -24,11 +24,9 @@ RUN apk add --no-cache --virtual build-dependencies \
     gtk+3.0-dev \
     tiff-dev \
     libnotify-dev \
-    webkitgtk-dev \
     gstreamer-dev \
     libmspack-dev \
-    sdl-dev \
-    automake
+    sdl-dev
 
 COPY --from=oce /opt/oce/ /opt/oce/
 
@@ -40,10 +38,6 @@ RUN git clone --depth 1 --branch v3.0.3.1 https://gitlab.com/kicad/code/wxWidget
 
 WORKDIR /wxwidgets
 
-RUN apk add \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
 # https://docs.kicad-pcb.org/doxygen/md_Documentation_development_compiling.html#build_linux
 RUN ./configure \
     --disable-shared \
