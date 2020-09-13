@@ -1,7 +1,7 @@
 FROM 0x01be/swig:4.0 as swig
 FROM 0x01be/oce as oce
 
-FROM 0x01be/ninja as builder
+FROM alpine as builder
 
 RUN apk add --no-cache --virtual kicad-build-dependencies \
     git \
@@ -46,7 +46,6 @@ WORKDIR /kicad/build
 # https://kicad.readthedocs.io/en/stable/Documentation/development/compiling/
 # https://docs.kicad-pcb.org/doxygen/md_Documentation_development_compiling.html
 RUN cmake \
-    -G Ninja \
     -DCMAKE_INSTALL_PREFIX=/opt/kicad \
     -DCMAKE_BUILD_TYPE=Release \
     -DKICAD_SCRIPTING=ON \
@@ -66,7 +65,7 @@ RUN cmake \
     -DwxWidgets_CONFIG_EXECUTABLE=/usr/bin/wx-config-gtk3 \
     -DOCE_DIR=/opt/oce/ \
      ..
-RUN ninja
+RUN make install
 
 FROM 0x01be/xpra
 
