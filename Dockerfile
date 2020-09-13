@@ -68,3 +68,15 @@ RUN cmake \
      ..
 RUN ninja
 
+FROM 0x01be/xpra
+
+COPY --from=builder /opt/kicad/ /opt/kicad/
+
+ENV PATH $PATH:/opt/kicad/
+
+USER xpra
+
+WORKDIR /workspace
+
+ENV COMMAND "kicad"
+
