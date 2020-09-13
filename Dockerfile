@@ -1,4 +1,3 @@
-FROM 0x01be/swig:4.0 as swig
 FROM 0x01be/oce as oce
 
 FROM alpine as builder
@@ -31,14 +30,10 @@ RUN apk add --no-cache --virtual kicad-edge-build-dependencies \
     py3-wxpython
 
 COPY --from=oce /opt/oce/ /opt/oce/
-COPY --from=swig /opt/swig/ /opt/swig/
 
-ENV SWIG_DIR /opt/swig
+ENV KICAD_REVISION master
 
-ENV PATH $PATH:$SWIG_DIR/bin/
-ENV LD_RUN_PATH /usr/lib/:/usr/bin/:${SWIG_DIR}/bin/
-
-RUN git clone --depth 1 https://gitlab.com/kicad/code/kicad.git /kicad
+RUN git clone --depth 1 --branch ${KICAD_REVISION} https://gitlab.com/kicad/code/kicad.git /kicad
 
 RUN mkdir -p /kicad/build
 WORKDIR /kicad/build
@@ -70,15 +65,14 @@ RUN make install
 FROM 0x01be/xpra
 
 COPY --from=builder /opt/kicad/ /opt/kicad/
-ENV PATH $PATH:/opt/kicad/kicad/
 
 USER root
 RUN apk add --no-cache --virtual kicad-runtime-dependencies \
+    python3 \
     mesa \
     glew \
     glm \
     cairo \
-    tcl \
     tk \
     jpeg \
     tiff \
@@ -86,10 +80,10 @@ RUN apk add --no-cache --virtual kicad-runtime-dependencies \
     gstreamer
 
 RUN apk add --no-cache --virtual kicad-edge-runtime-dependencies \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     ngspice \
-    wxgtk3 \
     py3-wxpython
 
 USER xpra
