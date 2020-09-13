@@ -1,3 +1,4 @@
+FROM 0x01be/swig:4.0 as swig
 FROM 0x01be/oce as oce
 
 FROM alpine as builder
@@ -30,6 +31,11 @@ RUN apk add --no-cache --virtual kicad-edge-build-dependencies \
     py3-wxpython
 
 COPY --from=oce /opt/oce/ /opt/oce/
+COPY --from=swig /opt/swig/ /opt/swig/
+
+ENV SWIG_DIR /opt/swig
+ENV PATH $PATH:$SWIG_DIR/bin/
+ENV LD_RUN_PATH /usr/lib/:/usr/bin/:${SWIG_DIR}/bin/
 
 ENV KICAD_REVISION master
 
