@@ -47,7 +47,6 @@ WORKDIR /kicad/build
 # https://docs.kicad-pcb.org/doxygen/md_Documentation_development_compiling.html
 RUN cmake \
     -G Ninja \
-    -DCMAKE_INSTALL_PREFIX=/opt/kicad \
     -DCMAKE_BUILD_TYPE=Release \
     -DKICAD_SCRIPTING=ON \
     -DKICAD_SCRIPTING_MODULES=ON \
@@ -67,4 +66,10 @@ RUN cmake \
     -DOCE_DIR=/opt/oce/ \
      ..
 RUN ninja
+
+RUN mkdir -p /opt/kicad/bin/
+RUN mkdir -p /opt/kicad/lib/
+
+RUN find /kicad/build -executable -type f -name *.so* | xargs -t -I {} mv {} /opt/kicad/lib/
+RUN find /kicad/build -executable -type f | xargs -t -I {} mv {} /opt/kicad/bin/
 
