@@ -48,6 +48,7 @@ WORKDIR /kicad/build
 RUN cmake \
     -DCMAKE_INSTALL_PREFIX=/opt/kicad \
     -DCMAKE_BUILD_TYPE=Release \
+    -DKICAD_SPICE=ON \
     -DKICAD_SCRIPTING=ON \
     -DKICAD_SCRIPTING_MODULES=ON \
     -DKICAD_SCRIPTING_PYTHON3=ON \
@@ -57,11 +58,10 @@ RUN cmake \
     -DBUILD_GITHUB_PLUGIN=ON \
     -DKICAD_USE_OCE=ON \
     -DKICAD_USE_OCC=OFF \
-    -DKICAD_SPICE=ON \
+    -DKICAD_USE_VALGRIND=OFF \
     -DKICAD_STDLIB_DEBUG=OFF \
     -DKICAD_STDLIB_LIGHT_DEBUG=OFF \
     -DKICAD_SANITIZE=OFF \
-    -DKICAD_USE_VALGRIND=OFF \
     -DwxWidgets_CONFIG_EXECUTABLE=/usr/bin/wx-config-gtk3 \
     -DOCE_DIR=/opt/oce/ \
      ..
@@ -70,8 +70,27 @@ RUN make install
 FROM 0x01be/xpra
 
 COPY --from=builder /opt/kicad/ /opt/kicad/
+ENV PATH $PATH:/opt/kicad/kicad/
 
-ENV PATH $PATH:/opt/kicad/
+USER root
+RUN apk add --no-cache --virtual kicad-runtime-dependencies \
+    mesa \
+    glew \
+    glm \
+    cairo \
+    tcl \
+    tk \
+    jpeg \
+    tiff \
+    libnotify \
+    gstreamer
+
+RUN apk add --no-cache --virtual kicad-edge-runtime-dependencies \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+    ngspice \
+    wxgtk3 \
+    py3-wxpython
 
 USER xpra
 
