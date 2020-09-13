@@ -5,6 +5,7 @@ FROM 0x01be/xpra
 COPY --from=build /opt/kicad/ /opt/kicad/
 ENV PATH $PATH:/opt/kicad/bin/
 ENV LD_LIBRARY_PATH /usr/lib/:/opt/kicad/lib/
+RUN ln -s /opt/kicad/plugins/InteractiveHtmlBom ~/.kicad/scripting/plugins/InteractiveHtmlBom
 
 USER root
 RUN apk add --no-cache --virtual kicad-runtime-dependencies \
