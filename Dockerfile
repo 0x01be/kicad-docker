@@ -13,6 +13,7 @@ RUN apk add --no-cache --virtual kicad-runtime-dependencies \
     mesa \
     glew \
     glm \
+    glu \
     cairo \
     tk \
     jpeg \
