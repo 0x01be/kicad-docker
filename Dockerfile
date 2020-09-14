@@ -71,8 +71,8 @@ RUN mkdir -p /opt/kicad/bin/
 RUN mkdir -p /opt/kicad/lib/
 RUN mkdir -p /opt/kicad/plugins/
 
-RUN find /kicad/build -executable -type f -name *.so* | xargs -t -I {} mv {} /opt/kicad/lib/
-RUN find /kicad/build -executable -type f | xargs -t -I {} mv {} /opt/kicad/bin/
+RUN find /kicad/build -executable -type f -name *.so* | xargs -t -I {} cp {} /opt/kicad/lib/
+RUN find /kicad/build -executable -type f | xargs -t -I {} cp {} /opt/kicad/bin/
 
-RUN git clone --depth 1 https://github.com/openscopeproject/InteractiveHtmlBom  ~/.kicad/scripting/plugins/InteractiveHtmlBom
+RUN git clone --depth 1 https://github.com/openscopeproject/InteractiveHtmlBom  /opt/kicak/plugins/ibom
 
