@@ -10,6 +10,7 @@ RUN ln -s /opt/kicad/plugins/InteractiveHtmlBom ~/.kicad/scripting/plugins/Inter
 USER root
 RUN apk add --no-cache --virtual kicad-runtime-dependencies \
     python3 \
+    curl \
     mesa \
     glew \
     glm \
