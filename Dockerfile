@@ -10,7 +10,7 @@ WORKDIR /kicad-automation-scripts
 
 RUN python3 setup.py install --home=/opt/kicad
 
-FROM 0x01be/xpra
+FROM alpine
 
 COPY --from=build /opt/kicad/ /opt/kicad/
 ENV PATH $PATH:/opt/kicad/bin/
@@ -21,6 +21,9 @@ USER root
 RUN apk add --no-cache --virtual kicad-runtime-dependencies \
     python3 \
     py3-yaml \
+    libxslt \
+    xdotool \
+    xclip \
     curl \
     mesa \
     glew \
@@ -39,9 +42,4 @@ RUN apk add --no-cache --virtual kicad-edge-runtime-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     ngspice \
     py3-wxpython
-
-USER xpra
-WORKDIR /workspace
-
-ENV COMMAND "kicad"
 
