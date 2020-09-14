@@ -34,7 +34,6 @@ COPY --from=oce /opt/oce/ /opt/oce/
 COPY --from=swig /opt/swig/ /opt/swig/
 
 ENV SWIG_DIR /opt/swig
-
 ENV PATH $PATH:$SWIG_DIR/bin/
 ENV LD_RUN_PATH /usr/lib/:/usr/bin/:${SWIG_DIR}/bin/
 
@@ -70,6 +69,7 @@ RUN ninja
 RUN mkdir -p /opt/kicad/bin/
 RUN mkdir -p /opt/kicad/lib/
 RUN mkdir -p /opt/kicad/plugins/
+RUN mkdir -p /opt/kicad/share/kicad/scripting/
 
 RUN find /kicad/build -executable -type f -name *.so* | xargs -t -I {} cp {} /opt/kicad/lib/
 RUN find /kicad/build -executable -type f | xargs -t -I {} cp {} /opt/kicad/bin/
