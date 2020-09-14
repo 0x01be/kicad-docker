@@ -4,6 +4,7 @@ FROM 0x01be/xpra
 
 COPY --from=build /opt/kicad/ /opt/kicad/
 ENV PATH $PATH:/opt/kicad/bin/
+ENV PYTHONPATH /usr/lib/python3.8/site-packages/:/opt/kicad/share/kicad/scripting/
 ENV LD_LIBRARY_PATH /usr/lib/:/opt/kicad/lib/
 
 USER root
