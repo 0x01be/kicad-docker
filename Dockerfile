@@ -68,11 +68,23 @@ RUN ninja
 
 RUN mkdir -p /opt/kicad/bin/
 RUN mkdir -p /opt/kicad/lib/
+RUN mkdir -p /opt/kicad/include/
 RUN mkdir -p /opt/kicad/plugins/
 RUN mkdir -p /opt/kicad/share/kicad/scripting/
+
 RUN git clone --depth 1 https://github.com/openscopeproject/InteractiveHtmlBom  /opt/kicad/plugins/ibom
 
-RUN find /kicad/build -executable -type f -name '*.so*' | xargs -t -I {} cp {} /opt/kicad/lib/
+RUN find /kicad/build -type f -name '*.so*' | xargs -t -I {} cp {} /opt/kicad/lib/
+RUN find /kicad/build -type f -name '*.a' | xargs -t -I {} cp {} /opt/kicad/lib/
+RUN find /kicad/build -type f -name '*.h' | xargs -t -I {} cp {} /opt/kicad/include/
+RUN find /kicad/build -type f -name '*.cpp' | xargs -t -I {} cp {} /opt/kicad/include/
 RUN find /kicad/build -executable -type f | xargs -t -I {} cp {} /opt/kicad/bin/
 RUN find /kicad/build -name '*.py' | xargs -t -I {} cp {} /opt/kicad/bin/
+
+RUN ln -s /opt/kicad/lib/libkicad_3dsg.so.2.0.0 /opt/kicad/lib/libkicad_3dsg.so
+
+RUN find /opt/kicad/ -name 'CMakeFiles' | xargs -t -I {} rm -rf {}
+RUN find /opt/kicad/ -name '*.cmake' | xargs -t -I {} rm {}
+RUN find /opt/kicad/ -name 'CMake*' | xargs -t -I {} rm {}
+RUN find /opt/kicad/bin/ -name '*.so*' | xargs -t -I {} rm {}
 
