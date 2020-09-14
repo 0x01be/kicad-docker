@@ -70,9 +70,9 @@ RUN mkdir -p /opt/kicad/bin/
 RUN mkdir -p /opt/kicad/lib/
 RUN mkdir -p /opt/kicad/plugins/
 RUN mkdir -p /opt/kicad/share/kicad/scripting/
-
-RUN find /kicad/build -executable -type f -name *.so* | xargs -t -I {} cp {} /opt/kicad/lib/
-RUN find /kicad/build -executable -type f | xargs -t -I {} cp {} /opt/kicad/bin/
-
 RUN git clone --depth 1 https://github.com/openscopeproject/InteractiveHtmlBom  /opt/kicad/plugins/ibom
+
+RUN find /kicad/build -executable -type f -name '*.so*' | xargs -t -I {} cp {} /opt/kicad/lib/
+RUN find /kicad/build -executable -type f | xargs -t -I {} cp {} /opt/kicad/bin/
+RUN find /kicad/build -name '*.py' | xargs -t -I {} cp {} /opt/kicad/bin/
 
