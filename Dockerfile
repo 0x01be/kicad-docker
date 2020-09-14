@@ -83,8 +83,6 @@ RUN find /kicad/build -name '*.py' | xargs -t -I {} cp {} /opt/kicad/bin/
 
 RUN ln -s /opt/kicad/lib/libkicad_3dsg.so.2.0.0 /opt/kicad/lib/libkicad_3dsg.so
 
-RUN find /opt/kicad/ -name 'CMakeFiles' | xargs -t -I {} rm -rf {}
-RUN find /opt/kicad/ -name '*.cmake' | xargs -t -I {} rm {}
-RUN find /opt/kicad/ -name 'CMake*' | xargs -t -I {} rm {}
+RUN find /opt/kicad/ -name 'CMake*' | xargs -t -I {} rm -rf {}
 RUN find /opt/kicad/bin/ -name '*.so*' | xargs -t -I {} rm {}
 
