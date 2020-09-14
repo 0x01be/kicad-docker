@@ -79,7 +79,7 @@ RUN find /kicad/build -type f -name '*.a' | xargs -t -I {} cp {} /opt/kicad/lib/
 RUN find /kicad/build -type f -name '*.h' | xargs -t -I {} cp {} /opt/kicad/include/
 RUN find /kicad/build -type f -name '*.cpp' | xargs -t -I {} cp {} /opt/kicad/include/
 RUN find /kicad/build -executable -type f | xargs -t -I {} cp {} /opt/kicad/bin/
-RUN find /kicad/build -name '*.py' | xargs -t -I {} cp {} /opt/kicad/bin/
+RUN find /kicad/build -name '*.py' | xargs -t -I {} cp {} /opt/kicad/share/kicad/scripting/
 
 RUN ln -s /opt/kicad/lib/libkicad_3dsg.so.2.0.0 /opt/kicad/lib/libkicad_3dsg.so
 
