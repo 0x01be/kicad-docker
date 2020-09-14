@@ -21,6 +21,7 @@ USER root
 RUN apk add --no-cache --virtual kicad-runtime-dependencies \
     python3 \
     py3-yaml \
+    py3-pip \
     libxslt \
     xdotool \
     xclip \
@@ -43,3 +44,4 @@ RUN apk add --no-cache --virtual kicad-edge-runtime-dependencies \
     ngspice \
     py3-wxpython
 
+RUN pip install --no-compile kibot
