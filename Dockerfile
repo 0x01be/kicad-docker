@@ -1,6 +1,6 @@
 FROM alpine as build
 
-ENV REVISION master
+ENV REVISION main
 ENV PROJECT OrangeCrab
 
 RUN apk add --no-cache git && git clone --depth 1 --branch ${REVISION} https://github.com/gregdavill/OrangeCrab.git /${PROJECT}
