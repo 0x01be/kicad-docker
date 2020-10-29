@@ -1,9 +1,9 @@
 FROM alpine as build
 
 ENV REVISION master
-ENV PROJECT fx2grok
+ENV PROJECT TrellisBoard
 
-RUN apk add --no-cache git && git clone --depth 1 --branch ${REVISION} git://sigrok.org/fx2grok /${PROJECT}
+RUN apk add --no-cache git && git clone --depth 1 --branch ${REVISION} https://github.com/daveshah1/TrellisBoard.git /${PROJECT}
 
 FROM 0x01be/kicad:stable
 
