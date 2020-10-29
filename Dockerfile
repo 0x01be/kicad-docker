@@ -1,18 +1,16 @@
-FROM 0x01be/xpra
+FROM alpine as build
 
-USER root
-RUN apk add --no-cache --virtual kicad-edge-runtime-dependencies \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-    ngspice \
-    kicad \
-    kicad-library \
-    kicad-library-3d \
-    kicad-i18n \
-    kicad-doc
+RUN apk add --no-cache --virtual fx2grok-build-dependencies \
+    git
 
-USER xpra
+ENV REVISION master
+ENV PROJECT /fx2grok
 
-ENV COMMAND "kicad"
+RUN git clone --depth 1 --branch ${REVISION} git://sigrock.com/fx2grok ${PROJECT}
+
+FROM 0x01be/kicad:stable
+
+COPY --from=build ${PROJECT} /home/xpra${PROJECT}
+
+ENV COMMAND kicad
 
