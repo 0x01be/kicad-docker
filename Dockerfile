@@ -12,7 +12,9 @@ RUN apk add --no-cache --virtual kicad-edge-runtime-dependencies \
     kicad-i18n \
     kicad-doc
 
+RUN mkdir -p /tmp/.X11-unix
+
 USER xpra
 
-ENV COMMAND "kicad"
+ENV COMMAND kicad
 
