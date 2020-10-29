@@ -6,7 +6,7 @@ RUN apk add --no-cache --virtual fx2grok-build-dependencies \
 ENV REVISION master
 ENV PROJECT fx2grok
 
-RUN git clone --depth 1 --branch ${REVISION} git://sigrock.com/fx2grok /${PROJECT}
+RUN git clone --depth 1 --branch ${REVISION} git://sigrok.com/fx2grok /${PROJECT}
 
 FROM 0x01be/kicad:stable
 
