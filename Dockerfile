@@ -24,6 +24,8 @@ RUN apk add --no-cache --virtual kicad-edge-runtime-dependencies \
     ngspice \
     py3-wxpython
 
+RUN mkdir -p /tmp/.X11-unix
+
 USER xpra
 
 COPY --from=build /opt/kicad/ /opt/kicad/
