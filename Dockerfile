@@ -12,5 +12,5 @@ COPY --from=build /${PROJECT}/ ${WORKSPACE}/${PROJECT}/
 RUN chown -R ${USER}:${USER} ${WORKSPACE}
 
 USER ${USER}
-ENV COMMAND kicad
+ENV COMMAND "kicad ${WORKSPACE}/${PROJECT}/hardware/fx2grok-flat/0.3/fx2grok-flat.pro"
 
