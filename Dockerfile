@@ -12,5 +12,5 @@ COPY --from=build /${PROJECT}/ ${WORKSPACE}/${PROJECT}/
 RUN chown -R ${USER}:${USER} ${WORKSPACE}
 
 USER ${USER}
-ENV COMMAND kicad
+ENV COMMAND "kicad ${WORKSPACE}/${PROJECT}/ulx3s.pro"
 
