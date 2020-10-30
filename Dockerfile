@@ -7,10 +7,10 @@ RUN apk add --no-cache git && git clone --depth 1 --branch ${REVISION} git://sig
 
 FROM 0x01be/kicad:stable
 
-COPY --from=build /${PROJECT}/ /home/xpra/${PROJECT}/
-USER root
-RUN chown -R xpra:xpra /home/xpra
+COPY --from=build /${PROJECT}/ ${WORKSPACE}/${PROJECT}/
 
-USER xpra
+RUN chown -R ${USER}:${USER} ${WORKSPACE}
+
+USER ${USER}
 ENV COMMAND kicad
 
