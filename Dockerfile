@@ -12,5 +12,5 @@ COPY --from=build /${PROJECT}/ ${WORKSPACE}/${PROJECT}/
 RUN chown -R ${USER}:${USER} ${WORKSPACE}
 
 USER ${USER}
-ENV COMMAND kicad
+ENV COMMAND "kicad /home/xpra/OrangeCrab/hardware/orangecrab_r0.2.1/OrangeCrab.pro"
 
