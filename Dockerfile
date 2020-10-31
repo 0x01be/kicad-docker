@@ -8,9 +8,9 @@ RUN apk add --no-cache git && git clone --depth 1 --branch ${REVISION} https://g
 FROM 0x01be/kicad:stable
 
 USER root
-COPY --from=build /${PROJECT}/ ${WORKSPACE}/${PROJECT}/
+COPY --from=build /YardStickOne ${WORKSPACE}/YardStickOne/
 RUN chown -R ${USER}:${USER} ${WORKSPACE}
 
 USER ${USER}
-ENV COMMAND "kicad ${WORKSPACE}/${PROJECT}/yardstickone/yardstickone.pro"
+ENV COMMAND "kicad ${WORKSPACE}/YardStickOne/yardstickone/yardstickone.pro"
 
