@@ -1,5 +1,7 @@
 FROM alpine as build
 
+USER root
+
 ENV REVISION main
 ENV PROJECT OrangeCrab
 
