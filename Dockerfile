@@ -1,7 +1,5 @@
 FROM alpine as build
 
-USER root
-
 ENV REVISION master
 ENV PROJECT fx2grok
 
@@ -9,8 +7,8 @@ RUN apk add --no-cache git && git clone --depth 1 --branch ${REVISION} git://sig
 
 FROM 0x01be/kicad:stable
 
+USER root
 COPY --from=build /${PROJECT}/ ${WORKSPACE}/${PROJECT}/
-
 RUN chown -R ${USER}:${USER} ${WORKSPACE}
 
 USER ${USER}
