@@ -1,5 +1,7 @@
 FROM alpine as build
 
+USER root
+
 ENV REVISION master
 ENV PROJECT fx2grok
 
