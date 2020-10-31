@@ -12,5 +12,5 @@ COPY --from=build /${PROJECT}/ ${WORKSPACE}/${PROJECT}/
 RUN chown -R ${USER}:${USER} ${WORKSPACE}
 
 USER ${USER}
-ENV COMMAND "kicad ${WORKSPACE}/${PROJECT}/hardware/ecp5_mainboard/ecp5_mainboard.pro
+ENV COMMAND "kicad ${WORKSPACE}/${PROJECT}/hardware/ecp5_mainboard/ecp5_mainboard.pro"
 
