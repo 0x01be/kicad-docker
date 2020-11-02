@@ -22,7 +22,9 @@ RUN apk add --no-cache --virtual kicad-edge-runtime-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     ngspice \
-    py3-wxpython
+    py3-wxpython \
+    mesa-gl \
+    mesa-dri-swrast
 
 RUN mkdir -p /tmp/.X11-unix
 
