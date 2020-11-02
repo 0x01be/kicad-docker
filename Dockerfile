@@ -9,7 +9,9 @@ RUN apk add --no-cache --virtual kicad-edge-runtime-dependencies \
     kicad-library \
     kicad-library-3d \
     kicad-i18n \
-    kicad-doc
+    kicad-doc \
+    mesa-gl \
+    mesa-dri-swrast
 
 USER xpra
 ENV COMMAND kicad
