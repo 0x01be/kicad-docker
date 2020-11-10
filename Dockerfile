@@ -1,6 +1,6 @@
 FROM alpine as build
 
-ENV REVISION master
+ENV REVISION main
 
 RUN apk add --no-cache git && git clone --depth 1 --branch ${REVISION} https://github.com/gregdavill/ButterStick.git /butter
 
